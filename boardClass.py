@@ -31,6 +31,12 @@ class boardClass():
         else:
             raise error.WrongTargetObject(target)
 
+    def updatePlayerStatus(self, player):
+        try:
+            self.boardMatrix[player.y, player.x] = player.playerTag
+        except IndexError as e:
+            print e
+            raise IndexError
 
     def getBoardPoint(self, x, y):
         return self.boardMatrix.item(x, y)

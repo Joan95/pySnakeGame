@@ -20,6 +20,20 @@ class Error(Exception):
         else:
             self.message = None
 
+class WrongOrUnknownDirection(Error):
+
+    def __init__(self, *args):
+        if args:
+            try:
+                self.message = args[0]
+            except IndexError as e:
+                pass
+
+    def __str__(self):
+        if self.message:
+            return('WrongOrUnknownDirection, the direction: {0} is not known. Please assure that the value is between 0 or 3.'.format(self.message))
+        else:
+            return('WrongOrUnknownDirection has been raised, no further description has been provided.')
 
 class WrongRandomParameters(Error):
 

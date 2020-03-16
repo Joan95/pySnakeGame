@@ -11,24 +11,56 @@
 
 class playerClass():
 
-    def __init__(self, x = 0, y = 0, speed = 1, size = 2):
-        self.x = x
-        self.y = y
+    def __init__(self, speed = 1, direction = 2, size = 4, namePlayer = ''):
+        self.y = list()
+        self.x = list()
         self.speed = speed
         self.oldSpeed = self.speed
+        self.direction = direction
         self.size = size
+        self.namePlayer = namePlayer
+        self.playerTag = 99
+
+        for i in range(0, size):
+            self.y.append(0)
+            self.x.append(0)
+
+
+    def updateStatus(self):
+        for i in range(self.size-1, 0, -1):
+            self.x[i] = self.x[i-1]
+            self.y[i] = self.y[i-1]
+
+        if self.direction == 0:
+            # Moving up
+            self.y[0] = self.y[0] - self.speed
+
+        elif self.direction == 1:
+            # Moving right
+            self.x[0] = self.x[0] + self.speed
+
+        elif self.direction == 2:
+            # Moving down
+            self.y[0] = self.y[0] + self.speed
+
+        elif self.direction == 3:
+            # Moving left
+            self.x[0] = self.x[0] - self.speed
+
+        else:
+            raise WrongOrUnknownDirection()
 
     def moveUp(self):
-        print("Moving up...")
+        self.direction = 0
 
     def moveDown(self):
-        print("Moving down...")
+        self.direction = 1
 
     def moveRight(self):
-        print("Moving right...")
+        self.direction = 2
 
     def moveLeft(self):
-        print("Moving left...")
+        self.direction = 3
 
     def getSpeed(self):
         return self.speed
@@ -36,6 +68,9 @@ class playerClass():
     def incrementSpeed(self, value = 1):
         self.speed = self.speed + value
         self.oldSpeed = self.speed
+
+    def setPlayerName(self, name):
+        self.name = name
 
     def stopPlayer(self):
         self.speed = 0

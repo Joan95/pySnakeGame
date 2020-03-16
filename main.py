@@ -10,7 +10,7 @@
 #-------------------------------------------------------------------------------
 
 import playerClass, boardClass, targetClass
-import time
+import time, keyboard
 
 def main():
     aux = False
@@ -24,30 +24,37 @@ def main():
     #Initializate Random Target and generate a new Random Target
     target = targetClass.targetClass(board.boardWidth, board.boardLength)
 
+    board.updatePlayerStatus(player)
+
 
     while True:
-        print board.boardMatrix
+        printBoard(board)
 
-        for x in range(225):
-            target.generateRandomTargetOverBoard(board)
+        player.updateStatus()
+        board.updatePlayerStatus(player)
 
-            while not aux:
-                if board.checkTargetToBeAWriteablePoint(target):
-                    aux = True
-                    board.setTargetInBoardPoint(target)
-                else:
-                    target.generateRandomTargetOverBoard(board)
 
-            aux = False
+##        for x in range(225):
+##            target.generateRandomTargetOverBoard(board)
+##
+##            while not aux:
+##                if board.checkTargetToBeAWriteablePoint(target):
+##                    aux = True
+##                    board.setTargetInBoardPoint(target)
+##                else:
+##                    target.generateRandomTargetOverBoard(board)
+##
+##            aux = False
+##
+##            print "\nLoop: %s, total counter targets set: %s\n\ttotal counter targets get: %s" % (x, target.targetsSet, target.targetsGet)
+##            printBoard(board)
 
-            printHeader()
-            printBoard()
+        time.sleep(1)
 
-def printBoard():
+
+def printBoard(board):
     print board.boardMatrix
 
-def printHeader():
-    print "\nLoop: %s, total counter targets set: %s\n\ttotal counter targets get: %s" % (x, target.targetsSet, target.targetsGet)
 
 
 if __name__ == '__main__':
